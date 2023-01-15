@@ -1,5 +1,10 @@
 import axios from 'axios'
-const instance = axios.create()
+import { message } from 'ant-design-vue'
+import httpErrorConfig from './httpErrorConfig'
+const instance = axios.create({
+  baseURL: process.env.VUE_APP_BASE_URL,
+  timeout: 3000
+})
 // 请求拦截
 instance.interceptors.request.use(function (config) {
   console.log('请求拦截')
@@ -10,10 +15,13 @@ instance.interceptors.request.use(function (config) {
   return Promise.reject(error)
 })
 
-instance.interceptors.response.use(function (config) {
+instance.interceptors.response.use(function (response) {
   console.log('响应拦截')
-  return config
+  return response.data
 }, function (error) {
+  if (error.code === 'ECONNABORTED') {
+    message.info(httpErrorConfig.ECONNABORTED)
+  }
   return Promise.reject(error)
 })
 function post (url, params) {

@@ -6,6 +6,8 @@ import './style/app.less'
 
 // import GlobalPrototype from './globalPrototype'
 import Axios from './axios/http'
+import Api from './axios/api'
+import baseConfig from './globalPrototype'
 
 import VueParticles from 'vue-particles'
 import {
@@ -24,8 +26,9 @@ import {
 } from 'ant-design-vue'
 
 const app = createApp(App)
-
+app.config.globalProperties.$baseConfig = baseConfig
 app.config.globalProperties.$http = Axios
+app.config.globalProperties.$api = Api
 
 app.use(store)
 

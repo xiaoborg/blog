@@ -11,19 +11,23 @@
 import { getCurrentInstance } from 'vue'
 import LoginForm from './LoginForm.vue'
 // import { useStore } from 'vuex'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
+import { message } from 'ant-design-vue'
 // const store = useStore()
-// const router = useRouter()
-
+const router = useRouter()
 const { proxy } = getCurrentInstance()
 const doLogin = (values) => {
-  console.log(values)
-  console.log(proxy.$http)
-  proxy.$http.get('http://localhost:8080/api/v1/user/login', {
+  proxy.$http.get(proxy.$api.user.login, {
     userPhone: values.userPhone,
     userPassword: values.userPassword
   }).then((res) => {
-    console.log(res)
+    if (proxy.$baseConfig.$CurrentEnvIsDev) console.log(res)
+    if (res.status) {
+      message.success(res.msg)
+      router.push({ path: '/account' })
+    } else {
+      message.info(res.msg)
+    }
   }).catch((err) => {
     console.log(err)
   })

@@ -1,6 +1,10 @@
 <template>
   <Header v-if="isShow"> </Header>
-  <router-view></router-view>
+  <router-view v-slot="{ Component, route }">
+    <transition :name="route.meta.transition || 'fade'">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 <script setup>
 import Header from './components/header'
@@ -23,4 +27,13 @@ export default {
   created() {}
 }
 </script>
-<style lang="less"></style>
+<style lang="less">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s ease-in;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
