@@ -20,20 +20,21 @@
         </a-menu-item>
         <a-sub-menu
           key="category/1"
-          popupClassName="nav-header-sub"
-        >
+          popupClassName="nav-header-sub">
           <template #title>技术类</template>
           <a-menu-item key="vue">Vue</a-menu-item>
           <a-menu-item key="docker">Docker</a-menu-item>
         </a-sub-menu>
         <a-sub-menu
           key="category/2"
-          popupClassName="nav-header-sub"
-        >
+          popupClassName="nav-header-sub">
           <template #title>生活情感</template>
           <a-menu-item key="qinggan1">情感1</a-menu-item>
           <a-menu-item key="qinggan2">情感2</a-menu-item>
         </a-sub-menu>
+        <a-menu-item key="category/xx">
+          关于我
+        </a-menu-item>
         <a-menu-item key="me">
           关于我
         </a-menu-item>

@@ -23,6 +23,8 @@ const doLogin = (values) => {
   }).then((res) => {
     if (proxy.$baseConfig.$CurrentEnvIsDev) console.log(res)
     if (res.status) {
+      localStorage.setItem('userInfo', JSON.stringify(res.data))
+      localStorage.setItem('token', JSON.stringify(res.token))
       message.success(res.msg)
       router.push({ path: '/account' })
     } else {

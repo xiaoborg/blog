@@ -7,16 +7,16 @@ const instance = axios.create({
 })
 // 请求拦截
 instance.interceptors.request.use(function (config) {
-  console.log('请求拦截')
   // config.headers.setContentType('application/x-www-form-urlencoded;charset:utf-8')
   config.headers.setContentType('application/json;charset:utf-8')
+  config.headers.token = localStorage.getItem('token')
   return config
 }, function (error) {
   return Promise.reject(error)
 })
-
+// 响应拦截
 instance.interceptors.response.use(function (response) {
-  console.log('响应拦截')
+  response.data.data = JSON.parse(response.data.data)
   return response.data
 }, function (error) {
   if (error.code === 'ECONNABORTED') {

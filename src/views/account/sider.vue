@@ -19,12 +19,13 @@
 </template>
 <script>
 import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 export default {
   components: {},
   setup() {
-    const selectedKeys = ref(['accountHome'])
-    const openKeys = ref(['accountHome'])
+    const $route = useRoute()
+    const selectedKeys = ref([$route.name])
+    const openKeys = ref([$route.name])
     const $router = useRouter()
     const handleClick = (e) => {
       console.log(e.key)
