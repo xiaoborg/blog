@@ -1429,10 +1429,10 @@
   resolved "https://registry.npmmirror.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
-"@surely-vue/table@^2.5.4":
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/@surely-vue/table/-/table-2.5.4.tgz#2a11ac475db977b93b5f23b18ae8dd70662cb8ac"
-  integrity sha512-5vutNng3PQsOBjNbVoEvQYzFU4EcJW84A3mX6UTGxFIJL5/9KvP3OJhvoXL9L5FRluXp7NQI5tMKt6JYkBhx5Q==
+"@surely-vue/table@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@surely-vue/table/-/table-3.0.0.tgz#46c8c6cc3a2538e43da3941cd81645a6576a8dc0"
+  integrity sha512-FFm5t6UrgOF3GEdACAc0zDjo/p3w9siqPAZdLmZVXNcTC1c3EiC4jasThrdlqifCgc2PNJUA1PgOxU0yU88xmg==
   dependencies:
     "@ant-design/icons-vue" "^6.0.1"
     lodash-es "^4.17.21"

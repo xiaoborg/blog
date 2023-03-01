@@ -1,16 +1,15 @@
 <template>
   <a-menu
-    id="dddddd"
-    v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
+    :open-keys="openKeys"
     style="width: 256px"
     mode="inline"
-    @click="handleClick"
+    @click="onClick"
   >
     <a-menu-item key="accountHome" class="mt0">首页</a-menu-item>
-    <a-sub-menu key="sub1">
+    <a-sub-menu key="accoutArticle">
       <template #title>文章管理</template>
-      <a-menu-item key="AccountArticlePublish">发布文章</a-menu-item>
+      <a-menu-item key="accountArticlePublish">发布文章</a-menu-item>
       <a-menu-item key="accountArticleList">文章列表</a-menu-item>
     </a-sub-menu>
     <a-menu-item key="accountCategory">分类管理</a-menu-item>
@@ -18,34 +17,27 @@
   </a-menu>
 </template>
 <script>
-import { ref, watch } from 'vue'
+import { reactive, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 export default {
   components: {},
   setup() {
     const $route = useRoute()
-    const selectedKeys = ref([$route.name])
-    const openKeys = ref([$route.name])
     const $router = useRouter()
-    const handleClick = (e) => {
-      console.log(e.key)
-      goView(e.key)
-      selectedKeys.value[0] = e.key
-      openKeys.value[0] = e.key
+    const state = reactive({
+      openKeys: [$route.name === 'accountArticleList' ? 'accoutArticle' : $route.name],
+      selectedKeys: [$route.name]
+    })
+    console.log($route)
+    const onClick = (item) => {
+      state.openKeys = [item.key === 'accountArticleList' ? 'accoutArticle' : item.key]
+      $router.push({
+        name: item.key
+      })
     }
-    const goView = (routeName) => {
-      $router.push({ name: routeName })
-    }
-    watch(
-      () => openKeys,
-      (val) => {
-        console.log('openKeys', val)
-      }
-    )
     return {
-      selectedKeys,
-      openKeys,
-      handleClick
+      ...toRefs(state),
+      onClick
     }
   }
 }

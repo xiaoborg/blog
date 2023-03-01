@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './style/app.less'
-import '@surely-vue/table/dist/index.less'
+// import '@surely-vue/table/dist/index.less'
 
 // import GlobalPrototype from './globalPrototype'
 import Axios from './axios/http'
@@ -23,9 +23,11 @@ import {
   Timeline,
   BackTop,
   Row,
-  Col
+  Col,
+  Table,
+  Popconfirm
 } from 'ant-design-vue'
-import STable from '@surely-vue/table'
+// import STable from '@surely-vue/table'
 
 const app = createApp(App)
 app.config.globalProperties.$baseConfig = baseConfig
@@ -33,7 +35,7 @@ app.config.globalProperties.$http = Axios
 app.config.globalProperties.$api = Api
 
 app.use(store)
-app.use(STable)
+// app.use(STable)
 app.use(Button)
 app.use(Drawer)
 app.use(Menu)
@@ -46,6 +48,8 @@ app.use(Timeline)
 app.use(BackTop)
 app.use(Row)
 app.use(Col)
+app.use(Table)
+app.use(Popconfirm)
 app.use(VueParticles)
 
 app.use(router)
