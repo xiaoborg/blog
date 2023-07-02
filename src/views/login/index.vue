@@ -1,8 +1,23 @@
 <template>
   <div class="login">
-    <vue-particles class="particles" color="#ffffff" :particleOpacity="0.7" linesColor="#ffffff" :particlesNumber="80"
-      shapeType="circle" :particleSize="5" :linesWidth="2" :lineLinked="true" :lineOpacity="0.4" :linesDistance="150"
-      :moveSpeed="3" :hoverEffect="true" hoverMode="grab" :clickEffect="true" clickMode="push">
+    <vue-particles
+      class="particles"
+      color="#ffffff"
+      :particleOpacity="0.7"
+      linesColor="#ffffff"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="5"
+      :linesWidth="2"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    >
     </vue-particles>
     <LoginForm @doLogin="doLogin"></LoginForm>
   </div>
@@ -17,22 +32,25 @@ import { message } from 'ant-design-vue'
 const router = useRouter()
 const { proxy } = getCurrentInstance()
 const doLogin = (values) => {
-  proxy.$http.get(proxy.$api.user.login, {
-    userPhone: values.userPhone,
-    userPassword: values.userPassword
-  }).then((res) => {
-    if (proxy.$baseConfig.$CurrentEnvIsDev) console.log(res)
-    if (res.status) {
-      localStorage.setItem('userInfo', JSON.stringify(res.data))
-      localStorage.setItem('token', JSON.stringify(res.token))
-      message.success(res.msg)
-      router.push({ path: '/account' })
-    } else {
-      message.info(res.msg)
-    }
-  }).catch((err) => {
-    console.log(err)
-  })
+  proxy.$http
+    .get(proxy.$api.user.login, {
+      userPhone: values.userPhone,
+      userPassword: values.userPassword
+    })
+    .then((res) => {
+      if (proxy.$globalVars.$CurrentEnvIsDev) console.log(res)
+      if (res.status) {
+        localStorage.setItem('userInfo', JSON.stringify(res.data))
+        localStorage.setItem('token', JSON.stringify(res.token))
+        message.success(res.msg)
+        router.push({ path: '/account' })
+      } else {
+        message.info(res.msg)
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   // store.commit('setIsAuthenticated', true)
   // localStorage.setItem('userInfo', JSON.stringify(values))
   // router.push({ path: `/${values.userName}/home` })

@@ -25,12 +25,15 @@ export default {
     const $route = useRoute()
     const $router = useRouter()
     const state = reactive({
-      openKeys: [$route.name === 'accountArticleList' ? 'accoutArticle' : $route.name],
+      openKeys: [
+        $route.name === 'accountArticleList' ? 'accoutArticle' : $route.name
+      ],
       selectedKeys: [$route.name]
     })
-    console.log($route)
     const onClick = (item) => {
-      state.openKeys = [item.key === 'accountArticleList' ? 'accoutArticle' : item.key]
+      state.openKeys = [
+        item.key === 'accountArticleList' ? 'accoutArticle' : item.key
+      ]
       $router.push({
         name: item.key
       })
