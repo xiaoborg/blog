@@ -77,7 +77,8 @@ export default {
       formState: {
         blogTitle: '',
         blogStatus: 2,
-        categogyId: ''
+        categogyId: '',
+        publishStatus: 0
       },
       rules: {
         blogTitle: [{ required: true, message: '请输入博客标题' }],
@@ -92,9 +93,15 @@ export default {
     saveClick: async function (blogContent) {
       try {
         const blogInfo = await this.validateBlogInfo(blogContent)
-        const res = await this.$http.post(this.$api.blog.add, {})
+        const res = await this.$http.post(this.$api.blog.add, {
+          ...this.formState,
+          userId: this.userId,
+          blogContent: blogContent
+        })
         console.log(blogInfo, res)
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     },
     selectCategoryChange: function (categoryId) {
       this.formState.categoryId = categoryId
