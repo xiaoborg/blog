@@ -68,7 +68,7 @@ const routes = [
   },
   {
     name: 'accountArticlePublish',
-    path: '/article/publish',
+    path: '/article/publish/:blogId?',
     component: AccountArticlePublish
   }
 ]

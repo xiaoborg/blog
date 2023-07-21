@@ -78,7 +78,8 @@ export default {
         blogTitle: '',
         blogStatus: 2,
         categogyId: '',
-        publishStatus: 0
+        publishStatus: 0,
+        blogId: ''
       },
       rules: {
         blogTitle: [{ required: true, message: '请输入博客标题' }],
@@ -131,6 +132,20 @@ export default {
     }
   },
   created() {
+    if (this.$route.params.blogId !== '') {
+      this.$http
+        .get(this.$api.blog.listByBlogId, {
+          blogId: this.$route.params.blogId
+        })
+        .then(
+          (res) => {
+            console.log(res)
+          },
+          (err) => {
+            console.log(err)
+          }
+        )
+    }
     this.$http
       .get(this.$api.category.all, {
         userId: this.userId
@@ -145,7 +160,6 @@ export default {
             label: '---请选择---',
             disabled: true
           })
-          console.log(tempList)
         },
         (err) => {
           console.log(err)

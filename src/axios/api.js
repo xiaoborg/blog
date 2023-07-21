@@ -8,6 +8,8 @@ export default {
     delete: '/category/delete'
   },
   blog: {
-    add: '/blog/add'
+    add: '/blog/add',
+    listByUserId: '/blog/listByUserId',
+    listByBlogId: '/blog/listByBlogId'
   }
 }
