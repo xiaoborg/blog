@@ -42,15 +42,15 @@
         </div>
       </div>
 
-      <a-button> 保存为草稿 </a-button>
-      <a-button @click="sendClick(2)"> 发布 </a-button>
+      <a-button @click="saveOrPublickClick(0)"> 保存为草稿 </a-button>
+      <a-button @click="saveOrPublickClick(1)"> 发布 </a-button>
       <a-button>个人中心</a-button>
     </a-form>
 
     <div class="editor-content">
       <v-md-editor
         v-model="blogContent"
-        @save="saveClick"
+        @save="saveOrPublickClick(0)"
         :include-level="[1, 2, 3, 4, 5, 6]"
       >
       </v-md-editor>
@@ -76,9 +76,9 @@ export default {
       ],
       formState: {
         blogTitle: '',
-        blogStatus: 2,
+        blogStatus: 2, // 是否私密 1私密 2公开
         categogyId: '',
-        publishStatus: 0,
+        publishStatus: 0, // 是否发布  0保存 1发布
         blogId: ''
       },
       rules: {
@@ -91,15 +91,19 @@ export default {
     }
   },
   methods: {
-    saveClick: async function (blogContent) {
+    // 保存OR发布
+    saveOrPublickClick: async function (publishStatus) {
+      this.formState.publishStatus = publishStatus
       try {
-        const blogInfo = await this.validateBlogInfo(blogContent)
-        const res = await this.$http.post(this.$api.blog.add, {
-          ...this.formState,
-          userId: this.userId,
-          blogContent: blogContent
-        })
-        console.log(blogInfo, res)
+        const blogInfoStatus = await this.validateBlogInfo(this.blogContent)
+        if (blogInfoStatus) {
+          const res = await this.$http.post(this.$api.blog.add, {
+            ...this.formState,
+            userId: this.userId,
+            blogContent: this.blogContent
+          })
+          message.success(res.msg)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -110,7 +114,6 @@ export default {
     selectStatusChange: function (status) {
       this.formState.blogStatus = status
     },
-    sendClick: function (status) {},
     validateBlogInfo: async function (blogContent) {
       const _promise = new Promise((resolve, reject) => {
         let resBool = false
