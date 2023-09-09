@@ -46,7 +46,6 @@
       <a-button @click="saveOrPublickClick(1)"> 发布 </a-button>
       <a-button>个人中心</a-button>
     </a-form>
-
     <div class="editor-content">
       <v-md-editor
         v-model="blogContent"

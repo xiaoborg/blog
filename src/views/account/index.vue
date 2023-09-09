@@ -17,14 +17,13 @@ import Sider from './sider.vue'
   flex-direction: column;
   align-items: center;
   height: 100%;
-  background-image: url('../../assets/images/account_bg.png');
   background-repeat: repeat;
   padding: 16px;
-}
-.container {
-  display: flex;
+  position: relative;
+  overflow: hidden;
 }
 .container-content {
+  display: flex;
   height: 100%;
 }
 </style>

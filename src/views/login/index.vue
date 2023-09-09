@@ -1,24 +1,5 @@
 <template>
   <div class="login">
-    <vue-particles
-      class="particles"
-      color="#ffffff"
-      :particleOpacity="0.7"
-      linesColor="#ffffff"
-      :particlesNumber="80"
-      shapeType="circle"
-      :particleSize="5"
-      :linesWidth="2"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
-    >
-    </vue-particles>
     <LoginForm @doLogin="doLogin"></LoginForm>
   </div>
 </template>
@@ -60,13 +41,9 @@ const doLogin = (values) => {
 .login {
   width: 100vw;
   height: 100vh;
-  background-color: black;
   position: relative;
   overflow: hidden;
-  background-image: url('../../assets/images/login-bg.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
