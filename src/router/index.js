@@ -10,7 +10,6 @@ import AccountArticleList from '../views/account/article/list'
 import AccountArticlePublish from '../views/account/article/publish'
 import AccountCategory from '../views/account/category'
 import AccountLabel from '../views/account/label'
-
 const routes = [
   {
     path: '/login',
@@ -18,7 +17,7 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/:userName/:category',
+    path: '/',
     name: 'home',
     component: HomeView
   },

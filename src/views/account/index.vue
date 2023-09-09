@@ -16,7 +16,7 @@ import Sider from './sider.vue'
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   background-repeat: repeat;
   padding: 16px;
   position: relative;

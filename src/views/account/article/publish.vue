@@ -6,12 +6,18 @@
       :model="formState"
       class="publish-head"
     >
-      <a-button class="btn-article-manage">
+      <a-button
+        class="btn-article-manage"
+        @click="goBack"
+      >
         <span class="iconfont blog-fanhui"></span>
         文章管理
       </a-button>
       <div class="input-content">
-        <a-form-item name="blogTitle" :rules="rules.blogTitle">
+        <a-form-item
+          name="blogTitle"
+          :rules="rules.blogTitle"
+        >
           <a-input
             class="blog-title"
             placeholder="【标题】"
@@ -30,10 +36,13 @@
               @change="selectStatusChange"
             ></a-select>
           </a-form-item>
-          <a-form-item name="categogyId" :rules="rules.categogyId">
+          <a-form-item
+            name="categoryId"
+            :rules="rules.categoryId"
+          >
             <a-select
               class="blog-category"
-              v-model:value="formState.categogyId"
+              v-model:value="formState.categoryId"
               :options="optionsBlogCategory"
               style="width: 120px"
               @change="selectCategoryChange"
@@ -41,7 +50,6 @@
           </a-form-item>
         </div>
       </div>
-
       <a-button @click="saveOrPublickClick(0)"> 保存为草稿 </a-button>
       <a-button @click="saveOrPublickClick(1)"> 发布 </a-button>
       <a-button>个人中心</a-button>
@@ -61,7 +69,7 @@ import { message } from 'ant-design-vue'
 // import { message } from 'ant-design-vue'
 // import { commentProps } from 'ant-design-vue/lib/comment'
 export default {
-  data() {
+  data () {
     return {
       optionsBlogStatus: [
         {
@@ -76,13 +84,13 @@ export default {
       formState: {
         blogTitle: '',
         blogStatus: 2, // 是否私密 1私密 2公开
-        categogyId: '',
+        categoryId: '',
         publishStatus: 0, // 是否发布  0保存 1发布
         blogId: ''
       },
       rules: {
         blogTitle: [{ required: true, message: '请输入博客标题' }],
-        categogyId: [{ required: true, message: '请选择分类' }]
+        categoryId: [{ required: true, message: '请选择分类' }]
       },
       blogContent: '',
       optionsBlogCategory: [],
@@ -131,9 +139,12 @@ export default {
         )
       })
       return _promise
+    },
+    goBack () {
+      this.$router.back()
     }
   },
-  created() {
+  created () {
     if (this.$route.params.blogId !== '') {
       this.$http
         .get(this.$api.blog.listByBlogId, {
@@ -141,7 +152,9 @@ export default {
         })
         .then(
           (res) => {
-            console.log(res)
+            this.formState = { ...res.data[0] }
+            this.blogContent = this.formState.blogContent
+            console.log(this.formState.categoryId)
           },
           (err) => {
             console.log(err)

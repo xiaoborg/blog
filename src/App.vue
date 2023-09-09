@@ -60,10 +60,9 @@ export default {
 .app-container {
   position: relative;
   z-index: 2;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 .particles {
   position: absolute;
