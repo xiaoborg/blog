@@ -1,10 +1,6 @@
 <template>
   <div class="article-list-content">
-    <a-table
-      class="list-table"
-      :columns="columns"
-      :data-source="blogList"
-    >
+    <a-table class="list-table" :columns="columns" :data-source="blogList">
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'action'">
           <a-popconfirm
@@ -17,15 +13,15 @@
           </a-popconfirm>
         </template>
         <template v-if="column.dataIndex === 'blogTitle'">
-          <a
-            href="javascript:void(0)"
-            @click="goDetail(record)"
-          >{{
+          <a href="javascript:void(0)" @click="goDetail(record)">{{
             record.blogTitle
           }}</a>
         </template>
         <template v-if="column.dataIndex === 'blogStatus'">
-          {{record.blogStatus === 1 ? '私密' : '公开'}}
+          {{ record.blogStatus === 1 ? '私密' : '公开' }}
+        </template>
+        <template v-if="column.dataIndex === 'blogPubliicStatus'">
+          {{ record.blogStatus === 1 ? '已发布' : '草稿' }}
         </template>
       </template>
     </a-table>
@@ -33,7 +29,7 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       userId: JSON.parse(localStorage.getItem('userInfo')).userId,
       columns: [
@@ -43,14 +39,14 @@ export default {
           key: 'blogTitle'
         },
         {
-          title: '博客内容简要',
-          dataIndex: 'blogContent',
-          key: 'blogContent'
-        },
-        {
           title: '是否公开',
           dataIndex: 'blogStatus',
           key: 'blogStatus'
+        },
+        {
+          title: '博客状态',
+          dataIndex: 'blogPubliicStatus',
+          key: 'blogPubliicStatus'
         },
         {
           title: '创建时间',
@@ -84,7 +80,7 @@ export default {
       })
     }
   },
-  created () {
+  created() {
     this.$http
       .get(this.$api.blog.listByUserId, {
         userId: this.userId
@@ -115,23 +111,23 @@ export default {
   .list-table {
     width: 100%;
     .ant-table-thead {
-      tr {
-        > th:nth-child(1) {
-          width: 100px;
-        }
-        > th:nth-child(3) {
-          width: 100px;
-        }
-        > th:nth-child(4) {
-          width: 120px;
-        }
-        > th:nth-child(5) {
-          width: 120px;
-        }
-        > th:nth-child(6) {
-          width: 70px;
-        }
-      }
+      // tr {
+      //   > th:nth-child(1) {
+      //     width: 100px;
+      //   }
+      //   > th:nth-child(3) {
+      //     width: 100px;
+      //   }
+      //   > th:nth-child(4) {
+      //     width: 120px;
+      //   }
+      //   > th:nth-child(5) {
+      //     width: 120px;
+      //   }
+      //   > th:nth-child(6) {
+      //     width: 70px;
+      //   }
+      // }
     }
   }
 }
