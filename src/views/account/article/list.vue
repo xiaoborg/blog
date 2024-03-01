@@ -7,7 +7,7 @@
             title="您确定要删除?"
             okText="确定"
             cancelText="取消"
-            @confirm="onDelete(record.blogId)"
+            @confirm="onDelete(record)"
           >
             <a>删除</a>
           </a-popconfirm>
@@ -20,8 +20,8 @@
         <template v-if="column.dataIndex === 'blogStatus'">
           {{ record.blogStatus === 1 ? '私密' : '公开' }}
         </template>
-        <template v-if="column.dataIndex === 'blogPubliicStatus'">
-          {{ record.blogStatus === 1 ? '已发布' : '草稿' }}
+        <template v-if="column.dataIndex === 'blogPublicStatus'">
+          {{ record.blogPublicStatus === 1 ? '已发布' : '草稿' }}
         </template>
       </template>
     </a-table>
@@ -45,8 +45,8 @@ export default {
         },
         {
           title: '博客状态',
-          dataIndex: 'blogPubliicStatus',
-          key: 'blogPubliicStatus'
+          dataIndex: 'blogPublicStatus',
+          key: 'blogPublicStatus'
         },
         {
           title: '创建时间',
@@ -68,8 +68,19 @@ export default {
     }
   },
   methods: {
-    onDelete: function (key) {
-      console.log(key)
+    onDelete: function (blog) {
+      this.$http.post(this.$api.blog.delete, {
+        blogId: blog.blogId,
+        userId: blog.userId
+      }).then(
+        (res) => {
+          this.blogList = res.data
+          this.formatBlogTime(this.blogList)
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
     },
     goDetail: function (item) {
       this.$router.push({
@@ -78,24 +89,28 @@ export default {
           blogId: item.blogId
         }
       })
+    },
+    formatBlogTime(list) {
+      list.forEach((item) => {
+        item.blogCreateTime = this.$moment(item.blogCreateTime).format(
+          'YYYY-MM-DD HH:mm:ss'
+        )
+        item.blogUpdateTime = this.$moment(item.blogUpdateTime).format(
+          'YYYY-MM-DD HH:mm:ss'
+        )
+      })
     }
   },
   created() {
     this.$http
-      .get(this.$api.blog.listByUserId, {
+      .get(this.$api.blog.list, {
         userId: this.userId
       })
       .then(
         (res) => {
           this.blogList = res.data
-          this.blogList.forEach((item) => {
-            item.blogCreateTime = this.$moment(item.blogCreateTime).format(
-              'YYYY-MM-DD HH:mm:ss'
-            )
-            item.blogUpdateTime = this.$moment(item.blogUpdateTime).format(
-              'YYYY-MM-DD HH:mm:ss'
-            )
-          })
+          this.formatBlogTime(this.blogList)
+          console.log(this.blogList)
         },
         (err) => {
           console.log(err)

@@ -34,6 +34,15 @@ export default {
       state.openKeys = [
         item.key === 'accountArticleList' ? 'accoutArticle' : item.key
       ]
+      if (item.key === 'accountArticlePublish') {
+        $router.push({
+          name: item.key,
+          params: {
+            blogId: -1
+          }
+        })
+        return
+      }
       $router.push({
         name: item.key
       })

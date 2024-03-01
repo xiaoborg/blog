@@ -9,7 +9,8 @@ export default {
   },
   blog: {
     add: '/blog/add',
-    listByUserId: '/blog/listByUserId',
-    listByBlogId: '/blog/listByBlogId'
+    list: '/blog/list',
+    detail: '/blog/detail',
+    delete: '/blog/delete'
   }
 }

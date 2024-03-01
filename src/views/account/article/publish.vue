@@ -85,7 +85,7 @@ export default {
         blogTitle: '',
         blogStatus: 2, // 是否私密 1私密 2公开
         categoryId: '',
-        publishStatus: 0, // 是否发布  0保存 1发布
+        blogPublishStatus: 0, // 是否发布  0保存 1发布
         blogId: ''
       },
       rules: {
@@ -99,8 +99,8 @@ export default {
   },
   methods: {
     // 保存OR发布
-    saveOrPublickClick: async function (publishStatus) {
-      this.formState.publishStatus = publishStatus
+    saveOrPublickClick: async function (blogPublishStatus) {
+      this.formState.blogPublishStatus = blogPublishStatus
       try {
         const blogInfoStatus = await this.validateBlogInfo(this.blogContent)
         if (blogInfoStatus) {
@@ -144,10 +144,10 @@ export default {
       this.$router.back()
     }
   },
-  created () {
-    if (this.$route.params.blogId !== '') {
+  created() {
+    if (this.$route.params.blogId !== -1) {
       this.$http
-        .get(this.$api.blog.listByBlogId, {
+        .get(this.$api.blog.detail, {
           blogId: this.$route.params.blogId
         })
         .then(
