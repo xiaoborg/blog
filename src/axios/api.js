@@ -11,6 +11,7 @@ export default {
     add: '/blog/add',
     list: '/blog/list',
     detail: '/blog/detail',
-    delete: '/blog/delete'
+    delete: '/blog/delete',
+    update: '/blog/update'
   }
 }

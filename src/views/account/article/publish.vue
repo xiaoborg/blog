@@ -6,18 +6,12 @@
       :model="formState"
       class="publish-head"
     >
-      <a-button
-        class="btn-article-manage"
-        @click="goBack"
-      >
+      <a-button class="btn-article-manage" @click="goBack">
         <span class="iconfont blog-fanhui"></span>
         文章管理
       </a-button>
       <div class="input-content">
-        <a-form-item
-          name="blogTitle"
-          :rules="rules.blogTitle"
-        >
+        <a-form-item name="blogTitle" :rules="rules.blogTitle">
           <a-input
             class="blog-title"
             placeholder="【标题】"
@@ -36,10 +30,7 @@
               @change="selectStatusChange"
             ></a-select>
           </a-form-item>
-          <a-form-item
-            name="categoryId"
-            :rules="rules.categoryId"
-          >
+          <a-form-item name="categoryId" :rules="rules.categoryId">
             <a-select
               class="blog-category"
               v-model:value="formState.categoryId"
@@ -69,7 +60,7 @@ import { message } from 'ant-design-vue'
 // import { message } from 'ant-design-vue'
 // import { commentProps } from 'ant-design-vue/lib/comment'
 export default {
-  data () {
+  data() {
     return {
       optionsBlogStatus: [
         {
@@ -85,7 +76,7 @@ export default {
         blogTitle: '',
         blogStatus: 2, // 是否私密 1私密 2公开
         categoryId: '',
-        blogPublishStatus: 0, // 是否发布  0保存 1发布
+        blogPublicStatus: 0, // 是否发布  0保存 1发布
         blogId: ''
       },
       rules: {
@@ -99,17 +90,27 @@ export default {
   },
   methods: {
     // 保存OR发布
-    saveOrPublickClick: async function (blogPublishStatus) {
-      this.formState.blogPublishStatus = blogPublishStatus
+    saveOrPublickClick: async function (blogPublicStatus) {
+      this.formState.blogPublicStatus = blogPublicStatus
       try {
         const blogInfoStatus = await this.validateBlogInfo(this.blogContent)
         if (blogInfoStatus) {
-          const res = await this.$http.post(this.$api.blog.add, {
-            ...this.formState,
-            userId: this.userId,
-            blogContent: this.blogContent
-          })
-          message.success(res.msg)
+          if (this.$route.params.blogId !== -1) {
+            const res = await this.$http.post(this.$api.blog.update, {
+              ...this.formState,
+              userId: this.userId,
+              blogContent: this.blogContent
+            })
+            message.success(res.msg)
+          } else {
+            const res = await this.$http.post(this.$api.blog.add, {
+              ...this.formState,
+              userId: this.userId,
+              blogContent: this.blogContent
+            })
+            message.success(res.msg)
+          }
+          this.$router.back()
         }
       } catch (error) {
         console.log(error)
@@ -140,7 +141,7 @@ export default {
       })
       return _promise
     },
-    goBack () {
+    goBack() {
       this.$router.back()
     }
   },
