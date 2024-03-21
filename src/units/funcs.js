@@ -16,7 +16,7 @@ export default {
         // 若无子级则删除children属性
         const { children, ...objRest } = item
         item = objRest
-        // delete item.children
+        // delete item.children  
       }
     })
   },
