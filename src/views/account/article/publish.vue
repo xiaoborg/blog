@@ -95,7 +95,7 @@ export default {
       try {
         const blogInfoStatus = await this.validateBlogInfo(this.blogContent)
         if (blogInfoStatus) {
-          if (this.$route.params.blogId !== -1) {
+          if (this.$route.params.blogId !== '') {
             const res = await this.$http.post(this.$api.blog.update, {
               ...this.formState,
               userId: this.userId,

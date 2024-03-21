@@ -38,7 +38,7 @@ export default {
         $router.push({
           name: item.key,
           params: {
-            blogId: -1
+            blogId: ''
           }
         })
         return

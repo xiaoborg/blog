@@ -4,7 +4,8 @@
       <a-table
         :columns="columns"
         :data-source="list"
-        childrenColumnName="childrens"
+        childrenColumnName="children"
+        :indentSize="20"
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.dataIndex === 'action'">
@@ -21,7 +22,7 @@
       </a-table>
       <div class="btn-add">
         <a-button class="" shape="circle" @click="addBtnClick">
-          <span class="iconfont blog-add"></span>
+          <span class="iconfont blog-jia"></span>
         </a-button>
       </div>
       <a-modal
@@ -179,6 +180,7 @@ export default {
         (res) => {
           this.list = res.data
           this.$commonFunc.formatCategoryList(this.list)
+          console.log(this.list)
         },
         (err) => {
           console.log(err)
@@ -199,8 +201,8 @@ export default {
   right: 10px;
   top: 13px;
   button {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-color: #096dd9;
     display: flex;
     align-items: center;
