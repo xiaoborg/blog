@@ -178,16 +178,8 @@ export default {
       })
       .then(
         (res) => {
-          // this.list = res.data
-          // this.$commonFunc.formatCategoryList(this.list)
-          const objArr = [
-            {
-              name: '肖波',
-              age: 29,
-              children: []
-            }
-          ]
-          this.$commonFunc.formatCategoryList(objArr)
+          this.list = res.data
+          this.$commonFunc.formatCategoryList(this.list)
         },
         (err) => {
           console.log(err)

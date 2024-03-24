@@ -2,9 +2,9 @@ export default {
   /**
    * 格式化table数据
    * @param {*} arr
-   */
+  */
   formatCategoryList: function (arr) {
-    arr.forEach(item => {
+    arr.forEach((item, index) => {
       // item.key = item.categoryId
       // item.action = 'action'
       // item.value = item.categoryId
@@ -16,9 +16,7 @@ export default {
       } else {
         // 若无子级则删除children属性
         const { children, ...objRest } = item
-        item = objRest
-        console.log(item)
-        console.log(arr[0])
+        arr[index] = objRest
         // delete item.children
       }
     })
