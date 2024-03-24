@@ -5,18 +5,21 @@ export default {
    */
   formatCategoryList: function (arr) {
     arr.forEach(item => {
-      item.key = item.categoryId
-      item.action = 'action'
-      item.value = item.categoryId
-      item.title = item.categoryName
+      // item.key = item.categoryId
+      // item.action = 'action'
+      // item.value = item.categoryId
+      // item.title = item.categoryName
       // 若有子级则递归
+      console.log(arr[0] === item)
       if (item.children.length > 0) {
         this.formatCategoryList(item.children)
       } else {
         // 若无子级则删除children属性
         const { children, ...objRest } = item
         item = objRest
-        // delete item.children  
+        console.log(item)
+        console.log(arr[0])
+        // delete item.children
       }
     })
   },
